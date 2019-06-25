@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".Hangman_Main_Page">
+    <ImageView
+            android:src="@drawable/pendu_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hang_image"
+            android:layout_gravity="center_horizontal" android:layout_marginTop="50dp"/>
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/validate"
+            android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="50dp"
+            android:layout_marginLeft="100dp"/>
+    <TextView
+            android:text="Letter to test"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="50dp"
+            android:layout_marginRight="90dp" android:textSize="24sp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word3" android:layout_gravity="center"
+            android:layout_marginTop="100dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word4" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginLeft="20dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word0" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginRight="60dp"/>
+    <EditText
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/input_letter" android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="50dp" android:layout_marginLeft="15dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word1" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginRight="40dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word2" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginRight="20dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word6" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginLeft="60dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word7" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginLeft="80dp"/>
+    <TextView
+            android:text="_ "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/hidden_word5" android:layout_gravity="center"
+            android:layout_marginTop="100dp" android:layout_marginLeft="40dp"/>
+</FrameLayout>
