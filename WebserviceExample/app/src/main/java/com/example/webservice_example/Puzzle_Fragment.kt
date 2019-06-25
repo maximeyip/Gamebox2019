@@ -2,6 +2,7 @@ package com.example.webservice_example
 
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +23,19 @@ private const val ARG_PARAM2 = "param2"
  */
 class Puzzle_Fragment : Fragment() {
 
-    private var image_list = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 9)
+    private var image_list = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 9) // image actuelle
     private val imageview_list = arrayOfNulls<ImageButton>(9)
-    private var fixed_image = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    private var fixed_image = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9) // res voulu
     private var player_name = "unknown player"
+
+    val timer = object: CountDownTimer(60000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            countdown.text = (millisUntilFinished / 1000).toString()
+        }
+        override fun onFinish() {
+            (activity as MainActivity).GoToScore(1, player_name)
+        }
+    }
 
     fun setPlayer(name : String) {
         player_name = name
@@ -52,7 +62,7 @@ class Puzzle_Fragment : Fragment() {
     }
 
     fun fillPoke() {
-/*        fixed_image[0] = R.drawable.poke_0
+        fixed_image[0] = R.drawable.poke_0
         fixed_image[1] = R.drawable.poke_1
         fixed_image[2] = R.drawable.poke_2
         fixed_image[3] = R.drawable.poke_3
@@ -60,12 +70,11 @@ class Puzzle_Fragment : Fragment() {
         fixed_image[5] = R.drawable.poke_5
         fixed_image[6] = R.drawable.poke_6
         fixed_image[7] = R.drawable.poke_7
-        fixed_image[8] = R.drawable.poke_8*/
-        fillFlower()
+        fixed_image[8] = R.drawable.poke_8
     }
 
     fun fillEarth() {
-      /*  fixed_image[0] = R.drawable.earth_0
+        fixed_image[0] = R.drawable.earth_0
         fixed_image[1] = R.drawable.earth_1
         fixed_image[2] = R.drawable.earth_2
         fixed_image[3] = R.drawable.earth_3
@@ -73,8 +82,7 @@ class Puzzle_Fragment : Fragment() {
         fixed_image[5] = R.drawable.earth_5
         fixed_image[6] = R.drawable.earth_6
         fixed_image[7] = R.drawable.earth_7
-        fixed_image[8] = R.drawable.earth_8*/
-        fillFlower()
+        fixed_image[8] = R.drawable.earth_8
     }
 
     fun init(view : View){
@@ -85,11 +93,11 @@ class Puzzle_Fragment : Fragment() {
             else -> fillEarth()
         }
         fixed_image[9] = R.drawable.blank
+        for (counter in 0..15) {
         for (i in 0..8) {
             val random = Random.nextInt(0, 9)
-            val tmp = image_list[i]
-            image_list[i] = image_list[random]
-            image_list[random] = tmp
+            move(view, random, false)
+        }
         }
         for (i in 0..8) {
             val value = image_list[i]
@@ -109,48 +117,54 @@ class Puzzle_Fragment : Fragment() {
         imageview_list[7] = view.findViewById(image7.id)
         imageview_list[8] = view.findViewById(image8.id)
 
+        println("to be ready")
         init(view)
+        println("ready")
 
+        timer.start()
         image0.setOnClickListener {
-            move(view, 0)
+            move(view, 0, true)
         }
 
         image1.setOnClickListener {
-            move(view, 1)
+            move(view, 1, true)
         }
 
         image2.setOnClickListener {
-            move(view, 2)
+            move(view, 2, true)
         }
 
         image3.setOnClickListener {
-            move(view, 3)
+            move(view, 3, true)
         }
 
         image4.setOnClickListener {
-            move(view, 4)
+            move(view, 4, true)
         }
 
         image5.setOnClickListener {
-            move(view, 5)
+            move(view, 5, true)
         }
 
         image6.setOnClickListener {
-            move(view, 6)
+            move(view, 6, true)
         }
 
         image7.setOnClickListener {
-            move(view, 7)
+            move(view, 7, true)
         }
-
+        image8.setOnClickListener {
+            move(view, 8, true)
+        }
     }
 
-    fun move(view : View, index : Int) {
+    fun move(view : View, index : Int, update : Boolean)
+        {
         val tmp : Int = image_list[index]
         var target : Int = index
         while (true) {
             if (index % 3 != 0) {
-                if (image_list[index - 1] == -1) {
+                if (image_list[index - 1] == 9) {
                     image_list[index] = image_list[index - 1]
                     image_list[index - 1] = tmp
                     target = index - 1
@@ -158,7 +172,7 @@ class Puzzle_Fragment : Fragment() {
                 }
             }
             if (index >= 3) {
-                if (image_list[index - 3] == -1) {
+                if (image_list[index - 3] == 9) {
                     image_list[index] = image_list[index - 3]
                     image_list[index - 3] = tmp
                     target = index - 3
@@ -166,7 +180,7 @@ class Puzzle_Fragment : Fragment() {
                 }
             }
             if (index <= 5) {
-                if (image_list[index + 3] == -1) {
+                if (image_list[index + 3] == 9) {
                     image_list[index] = image_list[index + 3]
                     image_list[index + 3] = tmp
                     target = index + 3
@@ -174,7 +188,7 @@ class Puzzle_Fragment : Fragment() {
                 }
             }
             if (index % 3 != 2) {
-                if (image_list[index + 1] == -1) {
+                if (image_list[index + 1] == 9) {
                     image_list[index] = image_list[index + 1]
                     image_list[index + 1] = tmp
                     target = index + 1
@@ -183,17 +197,30 @@ class Puzzle_Fragment : Fragment() {
             }
             break
         }
-        if (target != index) {
+        if (target != index && update) {
             update_image(view, index, target)
         }
         return
     }
 
     fun update_image(view : View, index : Int, target : Int) {
-        val tmp = imageview_list[index]
-        imageview_list[index]!!.setImageResource(imageview_list[target]!!.id)
-        imageview_list[target]!!.setImageResource(tmp!!.id)
 
+        val value = image_list[index]
+        imageview_list[index]?.setImageResource(fixed_image[value])
+        val value2 = image_list[target]
+        imageview_list[target]?.setImageResource(fixed_image[value2])
+
+        var ind = 0
+        for (i in 0..8){
+            if (image_list[i] == i || ((i == 8) && (image_list[i] == 9)))
+                ind += 1
+            else
+                break
+        }
+        if (ind == 9) {
+            timer.cancel()
+            (activity as MainActivity).GoToScore(0, player_name)
+        }
     }
 
 }
