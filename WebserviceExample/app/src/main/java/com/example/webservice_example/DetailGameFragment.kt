@@ -87,11 +87,14 @@ class DetailGameFragment : Fragment() {
                             detail_game_playButton.setVisibility(View.VISIBLE)
                             detail_game_playButton.setImageResource(R.drawable.play_button)
                             detail_game_playButton.setOnClickListener {
+                                var name: String = editText.text.toString()
+                                if (name == "Wanna Play? Enter your name please")
+                                    name = "unknown player"
                                 if (responseData.name.equals("Hangman")) {
-                                    var name: String = editText.text.toString()
-                                    if (name == "Wanna Play? Enter your name please")
-                                        name = "unknown player"
                                     (activity as MainActivity).GoToHangMan(name)
+                                }
+                                if (responseData.name.equals("SlidingPuzzle")) {
+                                    (activity as MainActivity).GoToPuzzle(name)
                                 }
                             }
                         }

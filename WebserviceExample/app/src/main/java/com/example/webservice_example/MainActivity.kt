@@ -32,6 +32,15 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun GoToPuzzle(name: String) {
+        val fragment = Puzzle_Fragment()
+        fragment.setPlayer(name)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .commit()
+    }
+
     fun GoToHome(){
         supportFragmentManager
             .beginTransaction()
